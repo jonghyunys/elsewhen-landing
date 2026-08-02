@@ -218,30 +218,47 @@
       <h2>갈라진 길은 다시 만나지 않습니다</h2>
       <div class="comparison-grid">
         <article class="comparison-card comparison-card--old">
-          <svg class="comparison-svg" viewBox="0 0 400 260" aria-hidden="true" focusable="false">
-            <path d="M30,130 C100,130 100,50 170,50 C270,50 270,130 370,130" />
-            <path d="M30,130 C100,130 100,100 170,100 C270,100 270,130 370,130" />
-            <path d="M30,130 C100,130 100,160 170,160 C270,160 270,130 370,130" />
-            <path d="M30,130 C100,130 100,210 170,210 C270,210 270,130 370,130" />
+          <svg class="comparison-svg" viewBox="0 0 460 260" aria-hidden="true" focusable="false">
+            <path pathLength="100" d="M30,130 C100,130 100,50 170,50 C270,50 270,130 370,130" />
+            <path pathLength="100" d="M30,130 C100,130 100,100 170,100 C270,100 270,130 370,130" />
+            <path pathLength="100" d="M30,130 C100,130 100,160 170,160 C270,160 270,130 370,130" />
+            <path pathLength="100" d="M30,130 C100,130 100,210 170,210 C270,210 270,130 370,130" />
             <circle class="comparison-dot" cx="30" cy="130" r="4" />
             <circle class="comparison-dot comparison-dot--end" cx="370" cy="130" r="5" />
+            <text class="comparison-label" x="24" y="150" text-anchor="end">시작</text>
+            <text class="comparison-label" x="378" y="134" text-anchor="start">결말 1개</text>
+            <text class="comparison-label comparison-label--faint" x="170" y="32" text-anchor="middle">선택</text>
           </svg>
+          <div class="comparison-stat">
+            <span class="comparison-stat-number">1</span>
+            <span class="comparison-stat-label">도달 가능한 결말</span>
+          </div>
           <h3>기존 인터랙티브 소설</h3>
           <p>선택지는 있었지만, 결국 같은 결말로 합쳐집니다.</p>
         </article>
 
         <article class="comparison-card comparison-card--new">
-          <svg class="comparison-svg" viewBox="0 0 400 260" aria-hidden="true" focusable="false">
-            <path d="M30,130 C90,130 90,70 150,70 C260,70 260,30 370,30" />
-            <path d="M30,130 C90,130 90,70 150,70 C260,70 260,110 370,110" />
-            <path d="M30,130 C90,130 90,190 150,190 C260,190 260,150 370,150" />
-            <path d="M30,130 C90,130 90,190 150,190 C260,190 260,230 370,230" />
+          <svg class="comparison-svg" viewBox="0 0 460 260" aria-hidden="true" focusable="false">
+            <path pathLength="100" d="M30,130 C90,130 90,70 150,70 C260,70 260,30 370,30" />
+            <path pathLength="100" d="M30,130 C90,130 90,70 150,70 C260,70 260,110 370,110" />
+            <path pathLength="100" d="M30,130 C90,130 90,190 150,190 C260,190 260,150 370,150" />
+            <path pathLength="100" d="M30,130 C90,130 90,190 150,190 C260,190 260,230 370,230" />
             <circle class="comparison-dot" cx="30" cy="130" r="4" />
+            <circle class="comparison-dot comparison-dot--branch" cx="150" cy="70" r="2.5" />
+            <circle class="comparison-dot comparison-dot--branch" cx="150" cy="190" r="2.5" />
             <circle class="comparison-dot" cx="370" cy="30" r="3" />
             <circle class="comparison-dot" cx="370" cy="110" r="3" />
             <circle class="comparison-dot" cx="370" cy="150" r="3" />
             <circle class="comparison-dot" cx="370" cy="230" r="3" />
+            <text class="comparison-label" x="24" y="150" text-anchor="end">시작</text>
+            <text class="comparison-label" x="150" y="54" text-anchor="middle">선택</text>
+            <text class="comparison-label" x="150" y="210" text-anchor="middle">선택</text>
+            <text class="comparison-label comparison-label--strong" x="378" y="34" text-anchor="start">결말 12개</text>
           </svg>
+          <div class="comparison-stat">
+            <span class="comparison-stat-number">12</span>
+            <span class="comparison-stat-label">도달 가능한 결말</span>
+          </div>
           <h3>Elsewhen</h3>
           <p>선택한 길은 끝까지 갈라진 채로 남습니다.</p>
         </article>

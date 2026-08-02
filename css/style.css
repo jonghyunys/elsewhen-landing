@@ -872,12 +872,18 @@ nav {
   background-color: var(--color-surface-hover);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: var(--space-6) var(--space-5);
+  padding: var(--space-5) var(--space-4); /* 콘텐츠에 맞게 여백 축소 */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-3);
   text-align: center;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.comparison-card:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-4px);
 }
 
 .comparison-svg {
@@ -890,6 +896,29 @@ nav {
   fill: none;
   stroke-linecap: round;
   stroke-width: 2;
+  /* 선이 그려지는 애니메이션 기본 상태: 안 그려진 채로 대기 */
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 0.7s ease-out, stroke 0.25s ease, stroke-opacity 0.25s ease;
+}
+
+/* 오른쪽 카드는 hover 시 다이어그램 선도 함께 밝아짐 */
+.comparison-card--new:hover .comparison-svg path {
+  stroke: var(--color-primary-hover);
+  stroke-opacity: 1;
+}
+
+.comparison-label {
+  font-size: 12px;
+  font-family: var(--font-primary);
+}
+
+.comparison-label--faint {
+  opacity: 0.6;
+}
+
+.comparison-label--strong {
+  font-weight: 700;
 }
 
 .comparison-card h3 {
@@ -902,6 +931,25 @@ nav {
   font-size: var(--fs-body);
 }
 
+/* 다이어그램 아래 큰 숫자 통계 */
+.comparison-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.comparison-stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.comparison-stat-label {
+  font-size: var(--fs-eyebrow);
+  color: var(--color-text-secondary);
+}
+
 /* 왼쪽: 기존 인터랙티브 소설 — 회색, 결국 한 점으로 합쳐짐 */
 .comparison-card--old .comparison-svg path {
   stroke: var(--color-text-muted);
@@ -910,6 +958,19 @@ nav {
 
 .comparison-card--old .comparison-svg .comparison-dot {
   fill: var(--color-text-muted);
+}
+
+.comparison-card--old .comparison-label {
+  fill: var(--color-text-secondary);
+}
+
+.comparison-card--old .comparison-stat-number {
+  color: var(--color-text-muted);
+}
+
+/* 왼쪽 카드는 감지되자마자(지연 없이) 4개 선이 동시에 그려짐 */
+.comparison-card--old .comparison-svg path {
+  transition-delay: 0s;
 }
 
 /* 오른쪽: Elsewhen — 강조색, 끝까지 갈라진 채로 남음 */
@@ -922,8 +983,35 @@ nav {
   fill: var(--color-primary);
 }
 
+.comparison-card--new .comparison-label {
+  fill: var(--color-primary);
+}
+
+.comparison-card--new .comparison-stat-number {
+  color: var(--color-primary);
+}
+
 .comparison-card--new h3 {
   color: var(--color-primary);
+}
+
+/* 오른쪽 카드: 왼쪽보다 0.3초 늦게 시작 + 갈래 4개가 0.15초씩 순차적으로 그려짐 */
+.comparison-card--new .comparison-svg path:nth-of-type(1) { transition-delay: 0.3s; }
+.comparison-card--new .comparison-svg path:nth-of-type(2) { transition-delay: 0.45s; }
+.comparison-card--new .comparison-svg path:nth-of-type(3) { transition-delay: 0.6s; }
+.comparison-card--new .comparison-svg path:nth-of-type(4) { transition-delay: 0.75s; }
+
+/* 뷰포트에 들어오면 js/main.js가 이 클래스를 붙여 선을 그림 (한 번만 재생) */
+.comparison-grid.is-drawn .comparison-svg path {
+  stroke-dashoffset: 0;
+}
+
+/* 모션에 민감한 사용자는 애니메이션 없이 처음부터 완성된 상태로 */
+@media (prefers-reduced-motion: reduce) {
+  .comparison-svg path {
+    transition: none;
+    stroke-dashoffset: 0;
+  }
 }
 
 /* ==========================================================================

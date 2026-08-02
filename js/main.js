@@ -422,3 +422,27 @@ const story = {
 
   sections.forEach((section) => sectionObserver.observe(section));
 })();
+
+// ==========================================================================
+// 기능 비교 섹션: 화면에 들어오면 두 다이어그램의 선이 그려짐 (한 번만 재생)
+// 실제 드로잉 타이밍(카드 간 0.3초 차, 오른쪽 갈래 0.15초 간격)은 CSS의
+// transition-delay로 처리하고, 여기서는 트리거 클래스만 붙인다.
+// ==========================================================================
+(function () {
+  const grid = document.querySelector('.comparison-grid');
+  if (!grid) return;
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          grid.classList.add('is-drawn');
+          obs.unobserve(entry.target); // 한 번만 재생
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  observer.observe(grid);
+})();
