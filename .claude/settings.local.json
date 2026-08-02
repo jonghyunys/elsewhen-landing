@@ -11,7 +11,9 @@
       "Bash(python3 -c ' *)",
       "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --screenshot=/Users/limjonghyun/Desktop/elsewhen-landing/images/og-image.png --window-size=1200,630 \"file:///private/tmp/claude-501/-Users-limjonghyun-Desktop-elsewhen-landing/f883d089-e1e1-447b-9db9-596972056104/scratchpad/og-image-source.html\")",
       "Bash(python3 -c \"from PIL import Image; img = Image.open\\('/Users/limjonghyun/Desktop/elsewhen-landing/images/og-image.png'\\); print\\(img.size\\)\")",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
