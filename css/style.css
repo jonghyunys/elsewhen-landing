@@ -1,0 +1,1273 @@
+/* ==========================================================================
+   CSS 변수 정의 (색상 / 여백 / radius / 타입 스케일)
+   PlotMate 참고 스크린샷의 카드·버튼 감각을 다크 배경으로 전환
+   ========================================================================== */
+:root {
+  /* 색상 */
+  --color-bg: #0F0E17;
+  --color-surface: #17161F;        /* 카드 등 배경보다 한 톤 밝은 표면 */
+  --color-surface-hover: #1E1D2C;
+  --color-surface-alt: #16141F;    /* 섹션 배경 교차용. --color-bg보다 아주 살짝만 밝음 */
+  --color-border: rgba(255, 255, 254, 0.08);
+
+  --color-primary: #6366F1;
+  --color-primary-hover: #7C7FF5;  /* 밝은 배경 위 버튼 hover */
+  --color-primary-active: #4F46E5;
+
+  --color-text: #FFFFFE;
+  --color-text-secondary: #A7A9BE;
+  --color-text-muted: #6E7089;
+
+  /* 여백 스케일 (4px 기준 배수) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  /* radius 스케일 */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+
+  /* 타이포그래피 */
+  --font-primary: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* 타입 스케일: 전 섹션에 일관되게 적용 */
+  --fs-hero: clamp(2.5rem, 5.5vw, 4rem);
+  --fs-h2: clamp(1.75rem, 3.5vw, 2.75rem);
+  --fs-h3: 1.375rem;
+  --fs-body-lg: 1.125rem;
+  --fs-body: 1rem;
+  --fs-eyebrow: 0.8125rem;
+
+  /* 레이아웃 */
+  --container-width: 1200px;
+  --content-width-narrow: 720px;  /* 텍스트 중심 섹션 */
+  --content-width-wide: 1100px;   /* 카드·다이어그램 섹션 */
+
+  /* 섹션 수직 리듬 (min-height 대신 padding으로 여백 확보) */
+  --section-padding-y: 140px;
+  --section-padding-y-mobile: 80px;
+}
+
+/* ==========================================================================
+   리셋 / 기본 스타일
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+}
+
+/* 헤더 내비게이션 클릭 시 부드럽게 스크롤. 모션에 민감하면 즉시 이동 */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* 내비게이션이 이동하는 섹션들: 고정 헤더에 제목이 가리지 않도록 여유 확보 */
+#problem,
+#how,
+#features,
+#cta {
+  scroll-margin-top: 80px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  word-break: keep-all; /* 한글 어절 중간에서 줄바꿈되지 않도록 함 */
+  overflow-wrap: break-word;
+}
+
+h1, h2, h3, p, ul, ol {
+  margin: 0;
+}
+
+ul, ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* 스크린리더 전용 텍스트 (모달 라벨 등) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 포커스 스타일 (키보드 탐색 접근성) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* 스킵 링크가 이동시키는 대상(main)은 시각적 포커스 링이 필요 없음 */
+main:focus-visible {
+  outline: none;
+}
+
+/* ==========================================================================
+   스킵 링크
+   평소에는 화면 밖으로 숨겨두고, Tab으로 포커스를 받으면 나타난다
+   ========================================================================== */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: var(--space-4);
+  z-index: 300;
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus-visible {
+  top: var(--space-4);
+}
+
+/* ==========================================================================
+   공통 버튼
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-5);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-primary:active {
+  background-color: var(--color-primary-active);
+  transform: scale(0.98);
+}
+
+/* ==========================================================================
+   아이브로우 라벨 (섹션 제목 위 작은 라벨)
+   ========================================================================== */
+.eyebrow {
+  display: block;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+
+/* ==========================================================================
+   Header / Nav
+   ========================================================================== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 150;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease;
+}
+
+/* 스크롤을 시작하면 배경이 반투명 + 블러로 전환됨 (js/main.js가 토글) */
+header.is-scrolled {
+  background-color: rgba(15, 14, 23, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom-color: var(--color-border);
+}
+
+nav {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  position: relative;
+  display: inline-block;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  padding-bottom: var(--space-1);
+  transition: color 0.2s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-text);
+}
+
+/* 현재 보이는 섹션과 연결된 메뉴 항목: 강조색 + 밑줄 */
+.nav-link.is-active {
+  color: var(--color-primary);
+}
+
+.nav-link.is-active::after {
+  transform: scaleX(1);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* 햄버거 버튼: 데스크탑에서는 숨김, 768px 이하에서만 표시 */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-text);
+  border-radius: var(--radius-full);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* 열린 상태: 세 줄이 X 모양으로 변형 (aria-expanded를 훅으로 사용) */
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ==========================================================================
+   히어로 (섹션 중 유일하게 min-height 유지)
+   ========================================================================== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 88vh;
+  padding: var(--section-padding-y) var(--space-5);
+  text-align: center;
+  /* 아래(위)부터: 하단 페이드아웃 → 좌우 어두운 오버레이(텍스트 가독성) → 캐릭터 이미지 */
+  background-image:
+    linear-gradient(to bottom, transparent 75%, var(--color-bg) 100%),
+    linear-gradient(90deg, rgba(15, 14, 23, 0.95) 0%, rgba(15, 14, 23, 0.85) 45%, rgba(15, 14, 23, 0.4) 100%),
+    url('../images/hero-character.jpg');
+  background-size: cover, cover, cover;
+  background-position: center, center, 30% center; /* 캐릭터만 왼쪽으로 이동해 데모 카드에 얼굴이 가리지 않게 */
+  background-repeat: no-repeat, no-repeat, no-repeat;
+}
+
+/* 배경 분기 구조 SVG: 헤드라인 뒤로 깔아 가독성 유지 */
+.hero-branches {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  /* 텍스트가 놓이는 왼쪽 컬럼 영역은 완전히 가리고, 바깥으로 갈수록 선이 드러나도록 */
+  mask-image: radial-gradient(ellipse 30% 32% at 28% 50%, transparent 0%, transparent 75%, black 100%);
+  -webkit-mask-image: radial-gradient(ellipse 30% 32% at 28% 50%, transparent 0%, transparent 75%, black 100%);
+}
+
+.hero-branches path {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: branch-draw 0.8s ease-out forwards;
+}
+
+/* 단계가 깊어질수록 선이 가늘고 옅어지도록. 배경 이미지가 생겨서 전보다 더 낮춤 */
+.hero-branches .branch-l1 {
+  stroke-width: 1.5;
+  stroke-opacity: 0.15;
+  animation-delay: 0s;
+}
+
+.hero-branches .branch-l2 {
+  stroke-width: 1.2;
+  stroke-opacity: 0.11;
+  animation-delay: 0.5s;
+}
+
+.hero-branches .branch-l3 {
+  stroke-width: 1;
+  stroke-opacity: 0.07;
+  animation-delay: 1s;
+}
+
+.hero-branches circle {
+  fill: var(--color-primary);
+}
+
+.hero-branches .branch-start {
+  opacity: 0.4;
+}
+
+.hero-branches .branch-endpoint {
+  opacity: 0;
+  animation: branch-dot-fade 0.4s ease-out forwards;
+  animation-delay: 1.6s;
+}
+
+@keyframes branch-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes branch-dot-fade {
+  to {
+    opacity: 0.3;
+  }
+}
+
+/* 모션에 민감한 사용자를 위해 애니메이션 없이 완성된 상태로 바로 표시 */
+@media (prefers-reduced-motion: reduce) {
+  .hero-branches path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .hero-branches .branch-endpoint {
+    animation: none;
+    opacity: 0.3;
+  }
+}
+
+/* 좌: 헤드라인/서브카피/CTA, 우: 읽기 화면 데모 카드 */
+.hero-layout {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--content-width-wide);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: var(--space-5);
+  max-width: 480px;
+}
+
+.hero-content h1 {
+  font-size: var(--fs-hero);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+/* 헤드라인 안에서 강조하고 싶은 단어만 포인트 컬러로 */
+.accent-word {
+  color: var(--color-primary);
+}
+
+.hero-sub {
+  font-size: var(--fs-body-lg);
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+   히어로 데모: 실제 읽기 화면 미리보기 카드
+   ========================================================================== */
+.hero-demo {
+  display: flex;
+  justify-content: center;
+}
+
+.reader-card {
+  width: 100%;
+  max-width: 380px;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+  text-align: left;
+}
+
+.reader-card-label {
+  display: block;
+  font-size: var(--fs-eyebrow);
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-4);
+}
+
+/* 본문 + 지나온 히스토리를 함께 담는 스크롤 영역. 카드 높이를 넘으면 부드럽게 스크롤 */
+.reader-card-scroll {
+  max-height: 260px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+/* 지나온 본문: 위에 흐리게 쌓여 "걸어온 경로" 느낌을 줌 */
+.reader-card-history-entry {
+  color: var(--color-text-secondary);
+  font-size: var(--fs-body);
+  line-height: 1.75;
+  margin-bottom: var(--space-3);
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reader-card-history-entry.is-settled {
+  opacity: 0.35;
+  transform: translateY(-6px) scale(0.97);
+}
+
+.reader-card-text {
+  color: var(--color-text);
+  font-size: var(--fs-body);
+  line-height: 1.75;
+  min-height: 3.6em; /* 타이핑 도중 카드 높이가 흔들리지 않도록 완성 텍스트 기준으로 확보 */
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.reader-card-text.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reader-card-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  background-color: var(--color-primary);
+  vertical-align: text-bottom;
+  animation: reader-cursor-blink 0.8s step-end infinite;
+}
+
+@keyframes reader-cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.reader-card-choices {
+  margin-top: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.reader-choice {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: none;
+  color: var(--color-text-secondary);
+  font-family: var(--font-primary);
+  font-size: var(--fs-body);
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.reader-choice:hover:not(:disabled) {
+  border-color: var(--color-primary);
+}
+
+.reader-choice:disabled {
+  cursor: default;
+}
+
+.reader-choice.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 클릭 직후 잠깐 강조되는 선택된 항목 */
+.reader-choice.is-selected {
+  border-color: var(--color-primary);
+  background-color: rgba(99, 102, 241, 0.08);
+  color: var(--color-text);
+}
+
+/* 선택되지 않은 항목은 그 자리에서 사라짐 */
+.reader-choice.is-dismissed {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+/* 결말에서 "더 읽어보기"만 강조색 채우기 버튼으로 */
+.reader-choice--primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.reader-choice--primary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.reader-card-branch {
+  display: block;
+  width: 100%;
+  height: 40px;
+  margin-top: var(--space-4);
+}
+
+/* 기본은 옅은 회색 선으로 전체 분기 구조를 보여주고, 지나온 경로만 강조색으로 바뀜 */
+.reader-branch-path {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  transition: stroke 0.5s ease;
+}
+
+.reader-branch-path.is-active {
+  stroke: var(--color-primary);
+}
+
+.reader-branch-dot {
+  fill: var(--color-text-muted);
+  transition: fill 0.5s ease;
+}
+
+.reader-branch-dot.is-active {
+  fill: var(--color-primary);
+}
+
+/* 모션에 민감한 사용자에게는 애니메이션 없이 완성된 상태만 보여줌 (main.js가 즉시 최종 상태로 세팅) */
+@media (prefers-reduced-motion: reduce) {
+  .reader-choice,
+  .reader-card-text,
+  .reader-card-history-entry,
+  .reader-branch-path,
+  .reader-branch-dot {
+    transition: none;
+  }
+
+  .reader-card-cursor {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   섹션 제목(h2) 공통 스타일 — 전 섹션 통일
+   ========================================================================== */
+.problem h2,
+.how-it-works h2,
+.features h2,
+.who-its-for h2,
+.cta h2 {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+/* ==========================================================================
+   문제제기
+   ========================================================================== */
+.problem {
+  position: relative;
+  background-color: var(--color-surface-alt); /* 배경 톤 교차 */
+  padding: var(--section-padding-y) var(--space-5);
+}
+
+/* 섹션 상단 헤어라인: 가운데만 은은하게 보이는 그라데이션 */
+.problem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+}
+
+.problem article {
+  max-width: var(--content-width-narrow);
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* 여러 갈래가 결국 한 점으로 수렴하는 다이어그램 */
+.problem-diagram {
+  width: 100%;
+  max-width: 320px;
+  height: 100px;
+}
+
+.problem-diagram path {
+  fill: none;
+  stroke: var(--color-text-secondary);
+  stroke-opacity: 0.4;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.problem-diagram circle {
+  fill: var(--color-text-secondary);
+  opacity: 0.4;
+}
+
+/* 수렴하는 끝점 하나만 살짝 밝게 */
+.problem-diagram-end {
+  opacity: 1;
+}
+
+/* 본문 문장: 짧게 끊어 읽히도록 640px로 더 좁게, 마무리 문장과는 구분 */
+.problem p:not(.problem-closing) {
+  max-width: 640px;
+  margin: 0 auto;
+  color: var(--color-text-secondary);
+  font-size: var(--fs-body);
+}
+
+.problem-closing {
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: var(--fs-body);
+  margin-top: 40px; /* 위 문장들과 구분되는 간격 */
+}
+
+/* ==========================================================================
+   작동 원리 (How it works)
+   ========================================================================== */
+.how-it-works {
+  position: relative;
+  max-width: var(--content-width-wide); /* 카드·다이어그램 섹션 */
+  margin: 0 auto;
+  padding: var(--section-padding-y) var(--space-5);
+  text-align: center;
+}
+
+/* 섹션 상단 헤어라인: 가운데만 은은하게 보이는 그라데이션 */
+.how-it-works::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+}
+
+.how-it-works > p {
+  margin-top: var(--space-3);
+  color: var(--color-text-secondary);
+  font-size: var(--fs-body);
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.steps {
+  margin-top: var(--space-7);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+  gap: var(--space-5);
+}
+
+.step {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6) var(--space-5);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.step-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.step-icon path {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.step h3 {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.step p {
+  color: var(--color-text-secondary);
+  font-size: var(--fs-body);
+}
+
+/* 기존 기능 소개 카드였던 4개 문구. 작동 원리 섹션으로 이동. 2×2 그리드로 별도 리듬 형성 */
+.feature-highlights {
+  margin-top: var(--space-5);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: stretch;
+  gap: var(--space-5);
+}
+
+.feature-highlights li {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.feature-highlights h3 {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.feature-highlights p {
+  color: var(--color-text-secondary);
+  font-size: var(--fs-body);
+}
+
+/* ==========================================================================
+   기능 소개
+   ========================================================================== */
+.features {
+  position: relative;
+  background-color: var(--color-surface-alt); /* 배경 톤 교차 */
+  padding: var(--section-padding-y) var(--space-5);
+  text-align: center;
+}
+
+/* 섹션 상단 헤어라인: 가운데만 은은하게 보이는 그라데이션 */
+.features::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+}
+
+.features h2 {
+  margin-bottom: var(--space-7);
+}
+
+/* 좌우 대비: 기존 인터랙티브 소설(합쳐짐) vs Elsewhen(끝까지 갈라짐) */
+.comparison-grid {
+  max-width: var(--content-width-wide); /* 카드·다이어그램 섹션. features가 풀블리드라 그리드에서 직접 폭 제한 */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.comparison-card {
+  /* features 배경이 surface-alt라 카드는 한 단계 더 밝은 톤으로 대비 확보 */
+  background-color: var(--color-surface-hover);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.comparison-svg {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+}
+
+.comparison-svg path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 2;
+}
+
+.comparison-card h3 {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.comparison-card p {
+  color: var(--color-text-secondary);
+  font-size: var(--fs-body);
+}
+
+/* 왼쪽: 기존 인터랙티브 소설 — 회색, 결국 한 점으로 합쳐짐 */
+.comparison-card--old .comparison-svg path {
+  stroke: var(--color-text-muted);
+  stroke-opacity: 0.7;
+}
+
+.comparison-card--old .comparison-svg .comparison-dot {
+  fill: var(--color-text-muted);
+}
+
+/* 오른쪽: Elsewhen — 강조색, 끝까지 갈라진 채로 남음 */
+.comparison-card--new .comparison-svg path {
+  stroke: var(--color-primary);
+  stroke-opacity: 0.9;
+}
+
+.comparison-card--new .comparison-svg .comparison-dot {
+  fill: var(--color-primary);
+}
+
+.comparison-card--new h3 {
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   타깃 보강 (Who it's for)
+   ========================================================================== */
+.who-its-for {
+  position: relative;
+  max-width: var(--content-width-narrow); /* 텍스트 중심 섹션 */
+  margin: 0 auto;
+  padding: var(--section-padding-y) var(--space-5);
+  text-align: center;
+}
+
+/* 섹션 상단 헤어라인: 가운데만 은은하게 보이는 그라데이션 */
+.who-its-for::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+}
+
+.who-its-for h2 {
+  margin-bottom: var(--space-6);
+}
+
+.who-its-for ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin: 0 auto;
+}
+
+.who-its-for li {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  color: var(--color-text-secondary);
+  font-size: var(--fs-body);
+  text-align: left;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.check-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px; /* 텍스트 첫 줄과 시각적으로 맞춤 */
+}
+
+.check-icon path {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ==========================================================================
+   CTA
+   콘텐츠에 비해 카드가 비어 보이지 않도록 패딩을 줄이고 높이는 콘텐츠에 맞춤
+   ========================================================================== */
+.cta {
+  position: relative;
+  overflow: hidden;
+  max-width: var(--content-width-narrow); /* 텍스트 중심 섹션 */
+  margin: var(--section-padding-y) auto;
+  padding: 100px 40px;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+/* 카드 우측에 은은하게 깔리는 분기 SVG. 음수 z-index로 텍스트 뒤로 확실히 보냄 */
+.cta-branches {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.cta-branches path {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-opacity: 0.12;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.cta p {
+  color: var(--color-text-secondary);
+  font-size: var(--fs-body);
+}
+
+/* ==========================================================================
+   모달
+   ========================================================================== */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(15, 14, 23, 0.7);
+}
+
+.modal-content {
+  position: relative;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-7);
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.modal-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.modal-content p {
+  color: var(--color-text-secondary);
+}
+
+.modal-close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: var(--color-text);
+}
+
+#signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+#signup-form input {
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-family: var(--font-primary);
+  font-size: 1rem;
+}
+
+#signup-form input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   스크롤 등장 애니메이션
+   js/main.js의 IntersectionObserver가 is-visible 클래스를 붙여준다.
+   ========================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+footer {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-5) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+  border-top: 1px solid var(--color-border);
+}
+
+.footer-brand {
+  color: var(--color-text-secondary);
+}
+
+.footer-copyright {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+/* ==========================================================================
+   태블릿 반응형 (1024px 이하): 히어로 배경 오버레이를 더 진하게
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .hero {
+    background-image:
+      linear-gradient(to bottom, transparent 75%, var(--color-bg) 100%),
+      linear-gradient(90deg, rgba(15, 14, 23, 0.97) 0%, rgba(15, 14, 23, 0.93) 50%, rgba(15, 14, 23, 0.9) 100%),
+      url('../images/hero-character.jpg');
+  }
+}
+
+/* ==========================================================================
+   모바일 반응형 (768px 이하)
+   ========================================================================== */
+@media (max-width: 768px) {
+
+  /* nav/footer는 좌우 여백만 조정 (수직 리듬 변경과 무관) */
+  nav,
+  footer {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+
+  /* 햄버거 버튼 노출 */
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  /* 메뉴를 전체 화면 오버레이로 전환. 평소엔 화면 밖으로 숨겨둠 */
+  .nav-links {
+    position: fixed;
+    inset: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-7);
+    background-color: var(--color-bg);
+    opacity: 0;
+    transform: translateY(-12px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .nav-links.is-open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .nav-link {
+    font-size: 1.5rem;
+  }
+
+  /* 히어로: min-height는 유지, 패딩만 모바일 리듬으로 축소. 배경 이미지는 제거하고 단색 배경만 */
+  .hero {
+    padding: var(--section-padding-y-mobile) var(--space-4);
+    background-image: none;
+  }
+
+  /* 2열 → 헤드라인 아래로 데모 카드가 세로로 쌓이게 */
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  /* 데모 카드도 헤드라인과 같은 전체 폭으로 */
+  .reader-card {
+    max-width: none;
+  }
+
+  /* 모바일에서는 텍스트 컬럼이 없어져 화면 전체를 쓰므로 마스크를 다시 중앙 기준으로 */
+  .hero-branches {
+    mask-image: radial-gradient(ellipse 45% 24% at 50% 30%, transparent 0%, transparent 75%, black 100%);
+    -webkit-mask-image: radial-gradient(ellipse 45% 24% at 50% 30%, transparent 0%, transparent 75%, black 100%);
+  }
+
+  /* 본문 섹션: 데스크탑 140px → 모바일 80px */
+  .problem,
+  .how-it-works,
+  .features,
+  .who-its-for {
+    padding: var(--section-padding-y-mobile) var(--space-4);
+  }
+
+  /* 3단 스텝 그리드 → 1열로 세로 스택 */
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  /* 작동 원리로 옮긴 4개 기능 문구: 2×2 → 1열로 세로 스택 */
+  .feature-highlights {
+    grid-template-columns: 1fr;
+  }
+
+  /* 좌우 2열 대비 구조 → 1열로 세로 스택 */
+  .comparison-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* 타깃 카드 2열 → 1열로 세로 스택 */
+  .who-its-for ul {
+    grid-template-columns: 1fr;
+  }
+
+  /* CTA: 데스크탑보다 좁은 패딩 + 섹션 간격은 모바일 리듬에 맞춤 */
+  .cta {
+    padding: 60px var(--space-5);
+    margin: var(--section-padding-y-mobile) var(--space-4);
+  }
+
+  /* 모달: 고정폭(420px) 대신 화면 폭에 맞춰 좌우 여백만 확보 */
+  .modal-content {
+    max-width: none;
+    width: calc(100% - var(--space-6));
+    padding: var(--space-5);
+  }
+}

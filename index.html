@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elsewhen — 다른 시간, 다른 선택</title>
+  <meta name="description" content="Elsewhen은 독자의 선택에 따라 실제로 다른 이야기가 되는 웹소설 플랫폼입니다.">
+
+  <!-- Pretendard 웹폰트 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- 키보드 사용자가 헤더를 건너뛰고 바로 본문으로 이동할 수 있게 하는 스킵 링크 -->
+  <a href="#main-content" class="skip-link">본문 바로가기</a>
+
+  <header>
+    <nav aria-label="주요 메뉴">
+      <a href="#" class="logo">Elsewhen</a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#problem" class="nav-link">문제</a></li>
+        <li><a href="#how" class="nav-link">작동 방식</a></li>
+        <li><a href="#features" class="nav-link">기능</a></li>
+        <li><a href="#cta" class="nav-link">시작하기</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#cta" class="btn btn-primary" data-modal-trigger>얼리 액세스 신청</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="메뉴 열기">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+
+    <!-- 히어로 -->
+    <section id="hero" class="hero">
+      <!-- 분기 구조를 표현하는 배경 SVG (장식용, 스크린리더에서 숨김) -->
+      <!-- 단계별 x좌표를 40 / 410 / 780 / 1150으로 균등(370px) 배치, 각 단계는 같은 x에서 갈라짐 -->
+      <svg class="hero-branches" viewBox="0 0 1200 640" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <!-- 1단계: 시작점 → 2개 분기 -->
+        <path class="branch-l1" pathLength="100" d="M40,320 C225,320 225,200 410,200" />
+        <path class="branch-l1" pathLength="100" d="M40,320 C225,320 225,440 410,440" />
+
+        <!-- 2단계: 2개 → 4개 분기 -->
+        <path class="branch-l2" pathLength="100" d="M410,200 C595,200 595,140 780,140" />
+        <path class="branch-l2" pathLength="100" d="M410,200 C595,200 595,260 780,260" />
+        <path class="branch-l2" pathLength="100" d="M410,440 C595,440 595,380 780,380" />
+        <path class="branch-l2" pathLength="100" d="M410,440 C595,440 595,500 780,500" />
+
+        <!-- 3단계: 4개 → 8개 끝점 -->
+        <path class="branch-l3" pathLength="100" d="M780,140 C965,140 965,100 1150,100" />
+        <path class="branch-l3" pathLength="100" d="M780,140 C965,140 965,180 1150,180" />
+        <path class="branch-l3" pathLength="100" d="M780,260 C965,260 965,220 1150,220" />
+        <path class="branch-l3" pathLength="100" d="M780,260 C965,260 965,300 1150,300" />
+        <path class="branch-l3" pathLength="100" d="M780,380 C965,380 965,340 1150,340" />
+        <path class="branch-l3" pathLength="100" d="M780,380 C965,380 965,420 1150,420" />
+        <path class="branch-l3" pathLength="100" d="M780,500 C965,500 965,460 1150,460" />
+        <path class="branch-l3" pathLength="100" d="M780,500 C965,500 965,540 1150,540" />
+
+        <!-- 시작점 / 끝점 표시 (끝점은 절반 크기) -->
+        <circle class="branch-start" cx="40" cy="320" r="4" />
+        <circle class="branch-endpoint" cx="1150" cy="100" r="1.5" />
+        <circle class="branch-endpoint" cx="1150" cy="180" r="1.5" />
+        <circle class="branch-endpoint" cx="1150" cy="220" r="1.5" />
+        <circle class="branch-endpoint" cx="1150" cy="300" r="1.5" />
+        <circle class="branch-endpoint" cx="1150" cy="340" r="1.5" />
+        <circle class="branch-endpoint" cx="1150" cy="420" r="1.5" />
+        <circle class="branch-endpoint" cx="1150" cy="460" r="1.5" />
+        <circle class="branch-endpoint" cx="1150" cy="540" r="1.5" />
+      </svg>
+
+      <div class="hero-layout">
+        <div class="hero-content">
+          <h1>그때 <span class="accent-word">다르게</span> 했다면, 어떻게 됐을까</h1>
+          <p class="hero-sub">그 질문에 실제로 답하는 웹소설. 200개의 갈래, 10개 이상의 결말 — 당신이 고른 길만 당신의 이야기가 됩니다.</p>
+          <a href="#cta" class="btn btn-primary" data-modal-trigger>지금 읽어보기</a>
+        </div>
+
+        <!-- 실제 읽기 화면 미리보기: 사용자가 직접 선택지를 골라 진행하는 인터랙티브 데모 -->
+        <div class="hero-demo">
+          <div class="reader-card">
+            <span class="reader-card-label">3화 — 옥상에서</span>
+
+            <div class="reader-card-scroll">
+              <!-- 지나온 본문이 흐리게 쌓이는 영역 (장식용) -->
+              <div class="reader-card-history" aria-hidden="true"></div>
+              <!-- 현재 본문: 스크린리더가 갱신을 읽도록 aria-live 적용 -->
+              <p class="reader-card-text" aria-live="polite"><span class="reader-card-typed"></span><span class="reader-card-cursor" aria-hidden="true"></span></p>
+            </div>
+
+            <!-- 선택지 버튼은 js/main.js가 story 데이터를 기반으로 채워 넣음 -->
+            <div class="reader-card-choices"></div>
+
+            <!-- 지금까지 선택한 경로를 보여주는 미니 분기 지도 (장식용) -->
+            <svg class="reader-card-branch" viewBox="0 0 220 90" aria-hidden="true" focusable="false">
+              <path class="reader-branch-path" data-edge="start-hold" d="M10,45 C55,45 55,20 100,20" />
+              <path class="reader-branch-path" data-edge="start-let" d="M10,45 C55,45 55,70 100,70" />
+              <path class="reader-branch-path" data-edge="hold-ask" d="M100,20 C150,20 150,10 200,10" />
+              <path class="reader-branch-path" data-edge="hold-silent" d="M100,20 C150,20 150,30 200,30" />
+              <path class="reader-branch-path" data-edge="let-open" d="M100,70 C150,70 150,60 200,60" />
+              <path class="reader-branch-path" data-edge="let-leave" d="M100,70 C150,70 150,80 200,80" />
+              <circle class="reader-branch-dot" data-node="start" cx="10" cy="45" r="3" />
+              <circle class="reader-branch-dot" data-node="hold" cx="100" cy="20" r="2.5" />
+              <circle class="reader-branch-dot" data-node="let" cx="100" cy="70" r="2.5" />
+              <circle class="reader-branch-dot" data-node="ask" cx="200" cy="10" r="2.5" />
+              <circle class="reader-branch-dot" data-node="silent" cx="200" cy="30" r="2.5" />
+              <circle class="reader-branch-dot" data-node="open" cx="200" cy="60" r="2.5" />
+              <circle class="reader-branch-dot" data-node="leave" cx="200" cy="80" r="2.5" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 문제제기 -->
+    <section id="problem" class="problem">
+      <article>
+        <!-- 여러 갈래가 결국 한 점으로 수렴하는 다이어그램 (장식용) -->
+        <svg class="problem-diagram" viewBox="0 0 320 100" aria-hidden="true" focusable="false">
+          <path d="M10,50 C75,50 75,15 140,15 C225,15 225,50 310,50" />
+          <path d="M10,50 C75,50 75,38 140,38 C225,38 225,50 310,50" />
+          <path d="M10,50 C75,50 75,62 140,62 C225,62 225,50 310,50" />
+          <path d="M10,50 C75,50 75,85 140,85 C225,85 225,50 310,50" />
+          <circle cx="10" cy="50" r="3" />
+          <circle class="problem-diagram-end" cx="310" cy="50" r="4" />
+        </svg>
+        <span class="eyebrow">문제</span>
+        <h2>선택했는데, 결말은 같았다</h2>
+        <p>
+          열 개의 선택지 중 하나를 골랐다.<br>
+          다른 선택을 한 친구와 비교해봤다.<br>
+          결국 같은 곳에서 끝났다.
+        </p>
+        <p class="problem-closing">Elsewhen은 갈라진 길을 합치지 않습니다.</p>
+      </article>
+    </section>
+
+    <!-- 작동 원리 -->
+    <section id="how" class="how-it-works">
+      <span class="eyebrow">작동 방식</span>
+      <h2>AI가 실제로 갈라지는 이야기를 만듭니다</h2>
+      <p>한 작품마다 200개의 노드, 10개 이상의 결말. 사람이 일일이 쓸 수 없는 규모의 분기를, AI 제작 파이프라인이 만들어냅니다.</p>
+
+      <ol class="steps">
+        <li class="step">
+          <svg class="step-icon" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+            <path d="M4,20 C20,20 20,10 36,10" />
+            <path d="M4,20 C20,20 20,30 36,30" />
+          </svg>
+          <h3>선택한다</h3>
+          <p>매 순간, 진짜 갈림길이 놓입니다</p>
+        </li>
+        <li class="step">
+          <svg class="step-icon" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+            <path d="M4,20 C20,20 20,6 36,6" />
+            <path d="M4,20 C20,20 20,20 36,20" />
+            <path d="M4,20 C20,20 20,34 36,34" />
+          </svg>
+          <h3>갈라진다</h3>
+          <p>당신의 선택이 이야기의 구조 자체를 바꿉니다</p>
+        </li>
+        <li class="step">
+          <svg class="step-icon" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+            <path d="M6,14 L34,14" />
+            <path d="M6,26 L34,26" />
+          </svg>
+          <h3>다시 읽는다</h3>
+          <p>다른 선택은, 다른 이야기로 이어집니다</p>
+        </li>
+      </ol>
+
+      <ul class="feature-highlights">
+        <li>
+          <h3>진짜 분기 서사</h3>
+          <p>같은 선택을 두 번 해도, 이야기는 두 번 다르게 흐릅니다.</p>
+        </li>
+        <li>
+          <h3>재독 가치</h3>
+          <p>한 번 읽고 덮을 이야기가 아닙니다. 다른 선택이, 다른 결말로 계속 기다리고 있습니다.</p>
+        </li>
+        <li>
+          <h3>선택지 무과금</h3>
+          <p>결말을 보기 위해 결제할 필요는 없습니다. 선택은 언제나 무료입니다.</p>
+        </li>
+        <li>
+          <h3>AI 제작 파이프라인</h3>
+          <p>200개의 노드와 10개 이상의 결말 — AI가 사람이 쓸 수 없는 규모의 분기를 만듭니다.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 기능 소개: 기존 인터랙티브 소설 vs Elsewhen 좌우 대비 -->
+    <section id="features" class="features">
+      <span class="eyebrow">해결</span>
+      <h2>기능 소개</h2>
+      <div class="comparison-grid">
+        <article class="comparison-card comparison-card--old">
+          <svg class="comparison-svg" viewBox="0 0 400 260" aria-hidden="true" focusable="false">
+            <path d="M30,130 C100,130 100,50 170,50 C270,50 270,130 370,130" />
+            <path d="M30,130 C100,130 100,100 170,100 C270,100 270,130 370,130" />
+            <path d="M30,130 C100,130 100,160 170,160 C270,160 270,130 370,130" />
+            <path d="M30,130 C100,130 100,210 170,210 C270,210 270,130 370,130" />
+            <circle class="comparison-dot" cx="30" cy="130" r="4" />
+            <circle class="comparison-dot comparison-dot--end" cx="370" cy="130" r="5" />
+          </svg>
+          <h3>기존 인터랙티브 소설</h3>
+          <p>선택지는 있었지만, 결국 같은 결말로 합쳐집니다.</p>
+        </article>
+
+        <article class="comparison-card comparison-card--new">
+          <svg class="comparison-svg" viewBox="0 0 400 260" aria-hidden="true" focusable="false">
+            <path d="M30,130 C90,130 90,70 150,70 C260,70 260,30 370,30" />
+            <path d="M30,130 C90,130 90,70 150,70 C260,70 260,110 370,110" />
+            <path d="M30,130 C90,130 90,190 150,190 C260,190 260,150 370,150" />
+            <path d="M30,130 C90,130 90,190 150,190 C260,190 260,230 370,230" />
+            <circle class="comparison-dot" cx="30" cy="130" r="4" />
+            <circle class="comparison-dot" cx="370" cy="30" r="3" />
+            <circle class="comparison-dot" cx="370" cy="110" r="3" />
+            <circle class="comparison-dot" cx="370" cy="150" r="3" />
+            <circle class="comparison-dot" cx="370" cy="230" r="3" />
+          </svg>
+          <h3>Elsewhen</h3>
+          <p>선택한 길은 끝까지 갈라진 채로 남습니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 타깃 보강 -->
+    <section id="who-its-for" class="who-its-for">
+      <span class="eyebrow">이런 분께</span>
+      <h2>이런 이야기를 찾고 있었다면</h2>
+      <ul>
+        <li>
+          <svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+            <path d="M4,10 L8,14 L16,6" />
+          </svg>
+          <span>인터랙티브 픽션을 좋아하지만, 매번 같은 결말에 실망했다면</span>
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+            <path d="M4,10 L8,14 L16,6" />
+          </svg>
+          <span>회귀·빙의물처럼, "다른 선택을 했다면"을 직접 확인하고 싶었다면</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- CTA -->
+    <section id="cta" class="cta">
+      <!-- 카드 우측에 은은하게 깔리는 분기 SVG (장식용) -->
+      <svg class="cta-branches" viewBox="0 0 300 300" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path d="M20,150 C150,150 150,40 280,40" />
+        <path d="M20,150 C150,150 150,120 280,120" />
+        <path d="M20,150 C150,150 150,180 280,180" />
+        <path d="M20,150 C150,150 150,260 280,260" />
+      </svg>
+      <span class="eyebrow">시작하기</span>
+      <h2>당신의 선택은, 이번엔 진짜입니다</h2>
+      <p>얼리 액세스로 가장 먼저 갈라지는 이야기를 만나보세요.</p>
+      <button type="button" class="btn btn-primary" data-modal-trigger>얼리 액세스 신청하기</button>
+    </section>
+
+  </main>
+
+  <!-- 얼리 액세스 신청 모달 -->
+  <div id="signup-modal" class="modal" hidden>
+    <div class="modal-overlay" data-modal-close></div>
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button type="button" class="modal-close" data-modal-close aria-label="닫기">&times;</button>
+      <h2 id="modal-title">얼리 액세스 신청</h2>
+      <p>출시 소식을 가장 먼저 받아보세요.</p>
+      <form id="signup-form">
+        <label for="email" class="sr-only">이메일 주소</label>
+        <input type="email" id="email" name="email" placeholder="이메일 주소" required>
+        <button type="submit" class="btn btn-primary">신청 완료</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p class="footer-brand">Elsewhen — else + when, 다른 시간 다른 선택</p>
+    <p class="footer-copyright">&copy; 2026 Elsewhen. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
