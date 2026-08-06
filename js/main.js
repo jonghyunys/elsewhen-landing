@@ -77,9 +77,7 @@ const story = {
     );
   }
 
-  function openModal(event) {
-    if (event) event.preventDefault(); // CTA 버튼의 href="#cta" 앵커 이동 방지
-
+  function openModal() {
     lastFocusedElement = document.activeElement;
     modal.hidden = false;
     backgroundLandmarks.forEach((el) => { el.inert = true; });
