@@ -141,7 +141,7 @@ main:focus-visible {
    ========================================================================== */
 .skip-link {
   position: absolute;
-  top: -48px;
+  top: var(--space-4);
   left: var(--space-4);
   z-index: 300;
   padding: var(--space-3) var(--space-5);
@@ -149,11 +149,16 @@ main:focus-visible {
   color: var(--color-text);
   border-radius: var(--radius-md);
   font-weight: 600;
-  transition: top 0.2s ease;
+  /* top: -48px처럼 고정 px로 숨기면 padding·폰트에 따라 실제 높이가
+     48px를 넘을 때 화면 위쪽에 1~2px가 항상 삐져나와 보이는 버그가 생긴다.
+     translateY(-100%)는 요소 자신의 실제 높이만큼 이동하므로 높이가
+     바뀌어도 항상 완전히 화면 밖으로 사라진다. 60px는 여유 버퍼. */
+  transform: translateY(calc(-100% - 60px));
+  transition: transform 0.2s ease;
 }
 
 .skip-link:focus-visible {
-  top: var(--space-4);
+  transform: translateY(0);
 }
 
 /* ==========================================================================
